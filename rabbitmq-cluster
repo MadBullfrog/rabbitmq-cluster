@@ -10,6 +10,7 @@ else
   echo "Running as clustered server"
   /usr/sbin/rabbitmq-server -detached
   sleep 15
+  rabbitmqctl status
   rabbitmqctl stop_app
 
   echo "Joining cluster $CLUSTER_WITH"
