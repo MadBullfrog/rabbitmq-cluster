@@ -1,5 +1,5 @@
 rabbit1:
-  image: grandmore/rabbitmq-cluster
+  image: mad1/rabbitmq-cluster
   hostname: rabbit1
   mem_limit: 128m
   environment:
@@ -8,7 +8,7 @@ rabbit1:
     - "5672:5672"
     - "15672:15672"
 rabbit2:
-  image: grandmore/rabbitmq-cluster
+  image: mad1/rabbitmq-cluster
   hostname: rabbit2
   mem_limit: 128m
   links:
@@ -20,7 +20,7 @@ rabbit2:
     - "5673:5672"
     - "15673:15672"
 rabbit3:
-  image: grandmore/rabbitmq-cluster
+  image: mad1/rabbitmq-cluster
   hostname: rabbit3
   mem_limit: 128m
   links:
