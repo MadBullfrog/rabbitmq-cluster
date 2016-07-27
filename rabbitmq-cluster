@@ -5,13 +5,13 @@ RABBITMQ_NODENAME=${RABBITMQ_NODENAME:-rabbit}
 
 if [ -z "$CLUSTER_WITH" -o "$CLUSTER_WITH" = "$hostname" ]; then
   echo "Running as single server"
-  rabbitmq-server
+  /usr/sbin/rabbitmq-server
 else
   echo "Running as clustered server"
-  if [ -f /.CLUSTERED ] ; then
+  if [ -f /var/.CLUSTERED ] ; then
   /usr/sbin/rabbitmq-server
   else
-      touch /.CLUSTERED
+      touch /var/.CLUSTERED
       /usr/sbin/rabbitmq-server &
       sleep 10
       rabbitmqctl stop_app
