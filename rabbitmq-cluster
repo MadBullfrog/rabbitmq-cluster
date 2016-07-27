@@ -13,9 +13,9 @@ else
   #else
       #touch /var/.CLUSTERED
       /usr/sbin/rabbitmq-server &
-      sleep 10
+      rabbitmqctl wait
       rabbitmqctl stop_app
-      rabbitmqctl join_cluster rabbit@$CLUSTER_WITH
+      rabbitmqctl join_cluster $RABBITMQ_NODENAME@$CLUSTER_WITH
       rabbitmqctl start_app
       fg
   #fi
