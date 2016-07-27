@@ -5,15 +5,15 @@ RABBITMQ_NODENAME=${RABBITMQ_NODENAME:-rabbit}
 
 if [ -z "$CLUSTER_WITH" -o "$CLUSTER_WITH" = "$hostname" ]; then
   echo "Running as single server"
-  /usr/sbin/rabbitmq-server
+  rabbitmq-server
 else
   echo "Running as clustered server"
   #if [ -f /var/.CLUSTERED ] ; then
   #/usr/sbin/rabbitmq-server
   #else
       #touch /var/.CLUSTERED
-      /usr/sbin/rabbitmq-server &
-      rabbitmqctl wait
+      rabbitmq-server &
+      rabbitmqctl wait $HOME/mnesia/$RABBITMQ_NODENAME@$HOSTNAME.pid
       rabbitmqctl stop_app
       rabbitmqctl join_cluster $RABBITMQ_NODENAME@$CLUSTER_WITH
       rabbitmqctl start_app
