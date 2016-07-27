@@ -8,10 +8,21 @@ if [ -z "$CLUSTER_WITH" -o "$CLUSTER_WITH" = "$hostname" ]; then
   rabbitmq-server
 else
   echo "Running as clustered server"
-  rabbitmq-server -detached
-  rabbitmqctl status
-  sleep 15
-  rabbitmqctl status
+  if [ -f /.CLUSTERED ] ; then
+  /usr/sbin/rabbitmq-server
+  else
+      touch /.CLUSTERED
+      /usr/sbin/rabbitmq-server &
+      sleep 10
+      rabbitmqctl stop_app
+      rabbitmqctl join_cluster rabbit@$CLUSTER_WITH
+      rabbitmqctl start_app
+      fg
+  fi
+  #rabbitmq-server -detached
+  #rabbitmqctl status
+  #sleep 15
+  #rabbitmqctl status
   #rabbitmqctl stop_app
 
   #echo "Joining cluster $CLUSTER_WITH"
@@ -20,5 +31,5 @@ else
   #rabbitmqctl start_app
 
   # Tail to keep the a foreground process active..
-  tail -f /var/log/rabbitmq/*
+  #tail -f /var/log/rabbitmq/*
 fi
