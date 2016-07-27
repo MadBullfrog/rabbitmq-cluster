@@ -8,8 +8,8 @@ if [ -z "$CLUSTER_WITH" -o "$CLUSTER_WITH" = "$hostname" ]; then
   rabbitmq-server
 else
   echo "Running as clustered server"
-  /usr/sbin/rabbitmq-server -detached
-  sleep 15
+  rabbitmq-server -detached
+  #sleep 15
   rabbitmqctl status
   rabbitmqctl stop_app
 
